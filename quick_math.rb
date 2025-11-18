@@ -25,12 +25,15 @@ def end_quiz
   puts "Score: #{@score}/#{@questions.size}"
   puts "Time: #{(time - @start_time).to_i} seconds"
 
-  return puts 'Perfect score!' if @wrong_answers.empty?
-
-  puts 'Questions to review:'
-  @wrong_answers.each do |i|
-    puts "    #{@questions[i].compose}"
+  if @wrong_answers.empty?
+    puts 'Perfect score!'
+  else
+    puts 'Questions to review:'
+    @wrong_answers.each do |i|
+      puts "    #{@questions[i].compose}"
+    end
   end
+
   quit
 end
 
