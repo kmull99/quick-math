@@ -9,7 +9,6 @@ require './lib/toggle_text_button'
 
 @choice_buttons = []
 @selected_button = nil
-
 @submit_button = nil
 
 @questions = []
@@ -19,12 +18,12 @@ require './lib/toggle_text_button'
 
 @sounds = {}
 
-@start = nil
+@start_time = nil
 
 def end_quiz
   time = Time.now
-  puts "Score: #{@score}"
-  puts "Time: #{(time - @start).to_i} seconds"
+  puts "Score: #{@score}/#{@questions.size}"
+  puts "Time: #{(time - @start_time).to_i} seconds"
 
   return puts 'Perfect score!' if @wrong_answers.empty?
 
@@ -183,7 +182,7 @@ def main
     end
   end
 
-  @start = Time.now
+  @start_time = Time.now
 
   show
 end
