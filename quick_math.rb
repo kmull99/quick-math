@@ -133,13 +133,14 @@ def wrong_operation(x, y, op)
       x > y ? x / y : y / x
     end
   when :/
-
+    if rand(2).zero?
+      x - y
+    else
+      x * y
+    end
   when :%
-
+    x / y
   end
-  rv = op == :+ ? x - y : x + y
-
-  rv.negative? ? rand(10) : rv
 end
 
 def quit
