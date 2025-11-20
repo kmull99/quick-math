@@ -7,11 +7,27 @@ class Question
   @y = nil
   @operation = nil
   @answer = nil
+  @correct_answer = nil
 
   def initialize(x, y, operation)
-    @x = x
-    @y = y
+    @x = x.to_i
+    @y = y.to_i
     @operation = operation
+  end
+
+  def correct_answer
+    @correct_answer ||= case @operation
+                        when :+
+                          @x + @y
+                        when :-
+                          @x - @y
+                        when :*
+                          @x * @y
+                        when :/
+                          @x / @y
+                        when :%
+                          @x % @y
+                        end
   end
 
   def pretty_print
@@ -19,25 +35,11 @@ class Question
   end
 
   def answer(answer)
-    @answer = answer
+    @answer = answer.to_i
   end
 
   def grade
-    # Ensure answer is an integer
-    return false unless @answer && @answer.to_i.to_s == @answer
-
-    case @operation
-    when :+
-      @x.to_i + @y.to_i == @answer.to_i
-    when :-
-      @x.to_i - @y.to_i == @answer.to_i
-    when :*
-      @x.to_i * @y.to_i == @answer.to_i
-    when :/
-      @x.to_i / @y.to_i == @answer.to_i
-    when :%
-      @x.to_i % @y.to_i == @answer.to_i
-    end
+    @answer == correct_answer
   end
 
   def compose
