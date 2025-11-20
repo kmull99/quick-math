@@ -39,19 +39,35 @@ end
 
 def gen_question
   op = rand(2).zero? ? :+ : :-
-  x = rand(21)
-  y = rand(21)
 
-  # Ensure answer is not negative. This is only second grade math.
-  if op == :- && x < y
-    temp = x
-    x = y
-    y = temp
+  case op
+  when :+
+    x = rand(21)
+    y = rand(21)
+  when :-
+    x = rand(21)
+    y = rand(21)
+    # Ensure answer is non-negative
+    if x < y
+      tmp = x
+      x = y
+      y = tmp
+    end
+  when :*
+    x = rand(11)
+    y = rand(11)
+  when :/
+    # Ensure there is no remainder
+    y = rand(1..10)
+    x = y * rand(11)
+  when :%
+    x = rand(11..100)
+    y = rand(1..10)
   end
 
   @questions << Question.new(x, y, op)
 
-  choices = [op == :+ ? x + y : x - y]
+  choices = [@questions[-1].correct_answer]
   choices << off_by_few(choices[0])
   choices << off_by_ten(choices[0])
   choices << wrong_operation(x, y, op)
@@ -105,6 +121,22 @@ def off_by_ten(num)
 end
 
 def wrong_operation(x, y, op)
+  case op
+  when :+
+    x - y
+  when :-
+    x + y
+  when :*
+    if rand(2).zero?
+      x + y
+    else
+      x > y ? x / y : y / x
+    end
+  when :/
+
+  when :%
+
+  end
   rv = op == :+ ? x - y : x + y
 
   rv.negative? ? rand(10) : rv

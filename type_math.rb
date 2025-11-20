@@ -9,6 +9,7 @@ require './lib/toggle_text_button'
 
 @submit_button = nil
 
+@operators = []
 @questions = []
 @question_display = nil
 @wrong_answers = []
@@ -36,15 +37,31 @@ def end_quiz
 end
 
 def gen_question
-  op = rand(2).zero? ? :+ : :-
-  x = rand(21)
-  y = rand(21)
+  op = @operators.sample
 
-  # Ensure answer is not negative. This is only second grade math.
-  if op == :- && x < y
-    temp = x
-    x = y
-    y = temp
+  case op
+  when :+
+    x = rand(21)
+    y = rand(21)
+  when :-
+    x = rand(21)
+    y = rand(21)
+    # Ensure answer is non-negative
+    if x < y
+      tmp = x
+      x = y
+      y = tmp
+    end
+  when :*
+    x = rand(11)
+    y = rand(11)
+  when :/
+    # Ensure there is no remainder
+    y = rand(1..10)
+    x = y * rand(11)
+  when :%
+    x = rand(11..100)
+    y = rand(1..10)
   end
 
   @questions << Question.new(x, y, op)
@@ -82,6 +99,8 @@ def main
       width: 320,
       height: 250,
       resizable: false
+
+  @operators = %i[+ - * /]
 
   make_buttons
   make_display

@@ -10,11 +10,38 @@ wrong = []
 time = Time.now
 
 20.times do
-  question = Question.new(rand(20), rand(20), :+)
+  op = rand(2).zero? ? :+ : :-
+
+  case op
+  when :+
+    x = rand(21)
+    y = rand(21)
+  when :-
+    x = rand(21)
+    y = rand(21)
+    # Ensure answer is non-negative
+    if x < y
+      tmp = x
+      x = y
+      y = tmp
+    end
+  when :*
+    x = rand(11)
+    y = rand(11)
+  when :/
+    # Ensure there is no remainder
+    y = rand(1..10)
+    x = y * rand(11)
+  when :%
+    x = rand(11..100)
+    y = rand(1..10)
+  end
+
+  question = Question.new(x, y, op)
 
   puts "\n"
   question.pretty_print
-  input = gets.chomp.delete_prefix('0')
+  input = gets.chomp
   question.answer(input)
 
   print "\e[1A"  # move up one line
@@ -23,10 +50,10 @@ time = Time.now
   print input
   if question.grade
     score += 1
-    # puts "\t Correct"
+    puts "\t Correct"
   else
     wrong << question
-    # puts "\t Wrong"
+    puts "\t Wrong"
   end
 end
 
