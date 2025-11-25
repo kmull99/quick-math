@@ -142,7 +142,9 @@ def main
 
       @input_display.set_text(tmp[0..-2])
     when /[[:digit:]]/
-      @input_display.set_text("#{@input_display.get_text}#{event.key}")
+      # Numpad keys print 'keypad #'
+      # key[-1] accounts for both numpad & numrow
+      @input_display.set_text("#{@input_display.get_text}#{event.key[-1]}")
     end
   end
 
