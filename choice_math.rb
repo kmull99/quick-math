@@ -156,7 +156,7 @@ def quit
 end
 
 def main
-  set title: 'Quick Math',
+  set title: 'Choice Math',
       background: 'gray',
       width: 320,
       height: 480,
