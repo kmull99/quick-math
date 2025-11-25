@@ -11,12 +11,11 @@ require './lib/toggle_text_button'
 @selected_button = nil
 @submit_button = nil
 
+@operators = []
 @questions = []
 @question_display = nil
 @wrong_answers = []
 @score = 0
-
-@sounds = {}
 
 @start_time = nil
 
@@ -34,11 +33,20 @@ def end_quiz
     end
   end
 
-  quit
+  puts "\nPlay again? (y/n)"
+  if %w[y Y].include?(gets.chomp)
+    @questions.clear
+    @wrong_answers.clear
+    @score = 0
+    gen_question
+    @start_time = Time.now
+  else
+    quit
+  end
 end
 
 def gen_question
-  op = rand(2).zero? ? :+ : :-
+  op = @operators.sample
 
   case op
   when :+
@@ -127,7 +135,7 @@ def wrong_operation(x, y, op)
   when :-
     x + y
   when :*
-    if rand(2).zero?
+    if rand(2).zero? || x.zero? || y.zero?
       x + y
     else
       x > y ? x / y : y / x
@@ -154,9 +162,9 @@ def main
       height: 480,
       resizable: false
 
+  @operators = %i[+ - * / %]
   make_buttons
   make_display
-  # make_sounds
   gen_question
 
   on :key_down do |event|
@@ -175,7 +183,6 @@ def main
 
       @selected_button.toggle
       @selected_button = nil
-      # @sounds[:button].play
 
       if @questions.size == 20
         end_quiz
@@ -193,7 +200,6 @@ def main
       @selected_button&.toggle
       @selected_button = button
       @selected_button.toggle
-      # @sounds[:button].play
     end
 
     if @submit_button.mouse_over?(event.x, event.y)
@@ -208,7 +214,6 @@ def main
 
       @selected_button.toggle
       @selected_button = nil
-      # @sounds[:button].play
 
       if @questions.size == 20
         end_quiz

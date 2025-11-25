@@ -27,13 +27,13 @@ Setup:
     - ruby console_math.rb
 
 TODO:
-  - Improve final results printout.
+  - Print final results in ruby2d window instead of console.
   - Select operations at start of quiz.
     ~ The Question class supports +, -, *, /, and &, but both quizzes
       only use + and -.
   - Select range of operands at start of quiz.
   - Set number of questions at start of quiz.
-  - Play again.
+  - Move play again screen from console to ruby2d window.
   - High score.
   - Difficulty selection
     ~ Overall time limit

@@ -33,7 +33,17 @@ def end_quiz
     end
   end
 
-  quit
+  puts "\nPlay again? (y/n)"
+  if %w[y Y].include?(gets.chomp)
+    @questions.clear
+    @wrong_answers.clear
+    @score = 0
+    @input_display.set_text('')
+    gen_question
+    @start_time = Time.now
+  else
+    quit
+  end
 end
 
 def gen_question
@@ -100,7 +110,7 @@ def main
       height: 250,
       resizable: false
 
-  @operators = %i[+ - * /]
+  @operators = %i[+ - * / %]
 
   make_buttons
   make_display
@@ -148,6 +158,7 @@ def main
       if @questions.size == 20
         end_quiz
       else
+        @input_display.set_text('')
         gen_question
       end
     end
