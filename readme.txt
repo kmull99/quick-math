@@ -1,16 +1,24 @@
 This is a timesheet generator I created to help my cousin
-practice her math. It generates 20 random questions & reports
+practice her math. It generates 20 random questions, reports
 your score & time spent, & prints out any questions you got wrong.
 
-There are two versions: console_math.rb, which only prints to the console,
-& quick_math.rb, which uses ruby2d to make a graphical quiz. The
-quick_math.rb version ocasionally displays duplicate choices. If duplicate
+There are three versions: console_math.rb, which only prints to the console,
+choice_math.rb, which uses ruby2d to make a multiple choice quiz, &
+type_math.rb, which uses ruby2d but makes you type the answer. The
+choice_math.rb version ocasionally displays duplicate choices. If duplicate
 correct choices are displayed, then any correct choice can be entered.
 
-Quick Math Controls:
+Choice Math Controls:
   - Mouse:  Click buttons
   - Esc:    Quit (does not print results)
   - Enter:  Hits submit button
+
+Type Math Controls:
+  - Mouse:  Click buttons
+  - Esc:    Quit (does not print results)
+  - Enter:  Hits submit button
+  - Type the answer & either hit enter or click submit. Numbers
+    with leading zeros will be counted as wrong.
 
 Console Math Controls:
   Type the answer & press enter. Numbers with leading zeros will
