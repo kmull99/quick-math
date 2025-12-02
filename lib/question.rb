@@ -42,7 +42,7 @@ class Question
     @answer == correct_answer
   end
 
-  def compose
-    "#{@x} #{@operation} #{@y} = "
+  def compose(answer: false)
+    "#{@x.to_s.rjust(2)} #{@operation} #{@y.to_s.ljust(2)} = #{answer ? correct_answer : ''}"
   end
 end

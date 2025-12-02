@@ -65,7 +65,7 @@ loop do
 
   puts 'Questions to review:'
   wrong.each do |q|
-    q.pretty_print
+    puts "    #{q.compose(answer: true)}"
     puts
   end
 

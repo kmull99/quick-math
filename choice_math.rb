@@ -29,7 +29,7 @@ def end_quiz
   else
     puts 'Questions to review:'
     @wrong_answers.each do |i|
-      puts "    #{@questions[i].compose}"
+      puts "    #{@questions[i].compose(answer: true)}"
     end
   end
 
