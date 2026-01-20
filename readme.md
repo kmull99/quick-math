@@ -24,6 +24,13 @@ Console Math Controls:
   Type the answer & press enter. Numbers with leading zeros will
   be counted as wrong.
 
+Setting the Operators:
+  - All games have support for +, -, *, /, and %, but default to using
+    using + and -. Change the by supplying a command line argument 
+    ( e.g. ruby type_math.rb "+-*/%" ). 
+      - Note: The quotation marks are required because the operations are
+        special characters in most operation systems.
+
 Setup:
   - Install ruby for your system
   - Install ruby2d & it's dependencies
@@ -36,9 +43,9 @@ Setup:
 
 TODO:
   - Print final results in ruby2d window instead of console.
-  - Select operations at start of quiz.
-    ~ The Question class supports +, -, *, /, and &, but both quizzes
-      only use + and -.
+  - Select operations at start of quiz Using in-game controls.
+    ~ All quizzes default to only + and -. You can change the operations
+      by supplying a command line argument. ( e.g. ruby type_math.rb "+-*/%" )
   - Select range of operands at start of quiz.
   - Set number of questions at start of quiz.
   - Move play again screen from console to ruby2d window.
@@ -47,4 +54,4 @@ TODO:
     ~ Overall time limit
     ~ Per question time limit
 
-This game is currently developed in Ruby 3.4.7. Other versions may or may not work.
+This game is currently developed in Ruby 3.4.8. Other versions may or may not work.

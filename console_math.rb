@@ -5,7 +5,7 @@
 require 'rubocop'
 require './lib/question'
 
-operators = %i[+ - *]
+operators = ARGV[0] ? ARGV[0].chars.map(&:to_sym) : %i[+ -]
 
 loop do
   score = 0

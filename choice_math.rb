@@ -162,7 +162,7 @@ def main
       height: 480,
       resizable: false
 
-  @operators = %i[+ - * / %]
+  @operators = ARGV[0] ? ARGV[0].chars.map(&:to_sym) : %i[+ -]
   make_buttons
   make_display
   gen_question
