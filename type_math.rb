@@ -76,7 +76,9 @@ def gen_question
 
   @questions << Question.new(x, y, op)
 
-  @question_display.set_text(@questions[-1].compose)
+  @question_display[:op1].set_text(@questions[-1].x.to_s.rjust(2))
+  @question_display[:op2].set_text(@questions[-1].y.to_s.rjust(2))
+  @question_display[:operator].set_text(@questions[-1].operation)
 end
 
 def make_buttons
@@ -88,10 +90,28 @@ def make_buttons
 end
 
 def make_display
-  @question_display = ToggleTextButton.new(
-    coords: { x: 60, y: 25 },
-    size: { width: 200, height: 50 }
-  )
+  @question_display = {
+    op1: ToggleTextButton.new(
+      coords: { x: 135, y: 1 },
+      size: { width: 50, height: 50 },
+      background: false
+    ),
+    op2: ToggleTextButton.new(
+      coords: { x: 135, y: 50 },
+      size: { width: 50, height: 50 },
+      background: false
+    ),
+    operator: ToggleTextButton.new(
+      coords: { x: 90, y: 50 },
+      size: { width: 50, height: 50 },
+      background: false
+    )
+  }
+
+  # @question_display = ToggleTextButton.new(
+  #   coords: { x: 60, y: 25 },
+  #   size: { width: 200, height: 50 }
+  # )
 
   @input_display = ToggleTextButton.new(
     coords: { x: 60, y: 100 },

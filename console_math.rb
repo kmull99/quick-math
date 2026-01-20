@@ -5,7 +5,7 @@
 require 'rubocop'
 require './lib/question'
 
-operators = %i[+ - * / %]
+operators = %i[+ - *]
 
 loop do
   score = 0
@@ -44,19 +44,23 @@ loop do
 
     puts "\n"
     question.pretty_print
+    print '  '
     input = gets.chomp
     question.answer(input)
 
-    print "\e[1A"  # move up one line
-    print "\e[K"   # clear the whole line
+    3.times do
+      print "\e[1A"  # move up one line
+      print "\e[K"   # clear the whole line
+    end
     question.pretty_print
-    print input
+    print input.rjust(4)
+    puts "\n"
     if question.grade
       score += 1
-      puts "\t Correct"
+      # puts "\t Correct"
     else
       wrong << question
-      puts "\t Wrong"
+      # puts "\t Wrong"
     end
   end
 

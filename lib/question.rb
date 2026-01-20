@@ -3,9 +3,8 @@
 require 'rubocop'
 
 class Question
-  @x = nil
-  @y = nil
-  @operation = nil
+  attr_reader :x, :y, :operation
+
   @answer = nil
   @correct_answer = nil
 
@@ -31,7 +30,8 @@ class Question
   end
 
   def pretty_print
-    print compose
+    puts @x.to_s.rjust(4)
+    puts "#{@operation} #{@y.to_s.rjust(2)}"
   end
 
   def answer(answer)

@@ -17,9 +17,10 @@ class ToggleTextButton
   # @param {String} image_path
   # @param {Hash{ x:, y: }} coords
   # @param {Hash{ x:, y: }} size
-  def initialize(text: nil, coords: { x: 0, y: 0 }, size: { width: 100, height: 100 })
+  def initialize(text: nil, coords: { x: 0, y: 0 }, size: { width: 100, height: 100 }, background: true)
     @coords = coords
     @size = size
+    @background = true unless background
 
     draw(text)
   end
@@ -46,9 +47,9 @@ class ToggleTextButton
   private
 
   def draw(text)
-    return if @background
+    # return if @background
 
-    @background = Rectangle.new(
+    @background ||= Rectangle.new(
       x: @coords[:x], y: @coords[:y],
       width: @size[:width], height: @size[:height],
       color: 'silver',
