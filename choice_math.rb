@@ -34,7 +34,7 @@ def end_quiz
   end
 
   puts "\nPlay again? (y/n)"
-  if %w[y Y].include?(gets.chomp)
+  if %w[y Y].include?($stdin.gets.chomp)
     @questions.clear
     @wrong_answers.clear
     @score = 0

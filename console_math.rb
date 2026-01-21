@@ -45,7 +45,7 @@ loop do
     puts "\n"
     question.pretty_print
     print '  '
-    input = gets.chomp
+    input = $stdin.gets.chomp
     question.answer(input)
 
     3.times do
@@ -74,5 +74,5 @@ loop do
   end
 
   puts "\nPlay again? (y/n)"
-  exit unless %w[y Y].include?(gets.chomp)
+  exit unless %w[y Y].include?($stdin.gets.chomp)
 end
