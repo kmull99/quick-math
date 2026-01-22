@@ -5,6 +5,7 @@
 require 'ruby2d'
 require 'rubocop'
 require './lib/question'
+require './lib/text_display'
 require './lib/toggle_text_button'
 
 @submit_button = nil
@@ -38,7 +39,7 @@ def end_quiz
     @questions.clear
     @wrong_answers.clear
     @score = 0
-    @input_display.set_text('')
+    @input_display.text = ('')
     gen_question
     @start_time = Time.now
   else
@@ -76,9 +77,9 @@ def gen_question
 
   @questions << Question.new(x, y, op)
 
-  @question_display[:op1].set_text(@questions[-1].x.to_s.rjust(2))
-  @question_display[:op2].set_text(@questions[-1].y.to_s.rjust(2))
-  @question_display[:operator].set_text(@questions[-1].operation)
+  @question_display[:op1].text = (@questions[-1].x)
+  @question_display[:op2].text = (@questions[-1].y)
+  @question_display[:operator].text = (@questions[-1].operation)
 end
 
 def make_buttons
@@ -91,29 +92,26 @@ end
 
 def make_display
   @question_display = {
-    op1: ToggleTextButton.new(
+    op1: TextDisplay.new(
       coords: { x: 135, y: 1 },
       size: { width: 50, height: 50 },
-      background: false
+      background: false,
+      orientation: :right
     ),
-    op2: ToggleTextButton.new(
+    op2: TextDisplay.new(
       coords: { x: 135, y: 50 },
       size: { width: 50, height: 50 },
-      background: false
+      background: false,
+      orientation: :right
     ),
-    operator: ToggleTextButton.new(
+    operator: TextDisplay.new(
       coords: { x: 90, y: 50 },
-      size: { width: 50, height: 50 },
-      background: false
+      background: false,
+      size: { width: 50, height: 50 }
     )
   }
 
-  # @question_display = ToggleTextButton.new(
-  #   coords: { x: 60, y: 25 },
-  #   size: { width: 200, height: 50 }
-  # )
-
-  @input_display = ToggleTextButton.new(
+  @input_display = TextDisplay.new(
     coords: { x: 60, y: 100 },
     size: { width: 200, height: 50 }
   )
@@ -141,9 +139,9 @@ def main
     when 'escape'
       quit
     when 'return'
-      next if @input_display.get_text.empty?
+      next if @input_display.text.empty?
 
-      @questions[-1].answer(@input_display.get_text)
+      @questions[-1].answer(@input_display.text)
       if @questions[-1].grade
         @score += 1
       else
@@ -153,24 +151,24 @@ def main
       if @questions.size == 20
         end_quiz
       else
-        @input_display.set_text('')
+        @input_display.text = ('')
         gen_question
       end
     when 'backspace'
-      tmp = @input_display.get_text
+      tmp = @input_display.text
       next if tmp.empty?
 
-      @input_display.set_text(tmp[0..-2])
+      @input_display.text = (tmp[0..-2])
     when /[[:digit:]]/
       # Numpad keys print 'keypad #'
       # key[-1] accounts for both numpad & numrow
-      @input_display.set_text("#{@input_display.get_text}#{event.key[-1]}")
+      @input_display.text = ("#{@input_display.text}#{event.key[-1]}")
     end
   end
 
   on :mouse_down do |event|
     if @submit_button.mouse_over?(event.x, event.y)
-      @questions[-1].answer(@input_display.get_text)
+      @questions[-1].answer(@input_display.text)
       if @questions[-1].grade
         @score += 1
       else
@@ -180,7 +178,7 @@ def main
       if @questions.size == 20
         end_quiz
       else
-        @input_display.set_text('')
+        @input_display.text = ('')
         gen_question
       end
     end

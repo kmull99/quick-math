@@ -5,6 +5,7 @@
 require 'ruby2d'
 require 'rubocop'
 require './lib/question'
+require './lib/text_display'
 require './lib/toggle_text_button'
 
 @choice_buttons = []
@@ -82,10 +83,10 @@ def gen_question
   choices.shuffle!
 
   (0..3).each do |i|
-    @choice_buttons[i].set_text(choices[i])
+    @choice_buttons[i].text = (choices[i])
   end
 
-  @question_display.set_text(@questions[-1].compose)
+  @question_display.text = (@questions[-1].compose)
 end
 
 def make_buttons
@@ -106,7 +107,7 @@ def make_buttons
 end
 
 def make_display
-  @question_display = ToggleTextButton.new(
+  @question_display = TextDisplay.new(
     coords: { x: 60, y: 25 },
     size: { width: 200, height: 50 }
   )
@@ -205,7 +206,7 @@ def main
     if @submit_button.mouse_over?(event.x, event.y)
       next unless @selected_button
 
-      @questions[-1].answer(@selected_button.get_text)
+      @questions[-1].answer(@selected_button.text)
       if @questions[-1].grade
         @score += 1
       else
