@@ -13,6 +13,9 @@ require './lib/toggle_text_button'
 @submit_button = nil
 
 @operators = []
+@num_questions = 20
+@time_limit = 120 # seconds
+
 @questions = []
 @question_display = nil
 @wrong_answers = []
@@ -22,10 +25,10 @@ require './lib/toggle_text_button'
 
 def end_quiz
   time = Time.now
-  puts "Score: #{@score}/#{@questions.size}"
+  puts "Score: #{@score}/#{@num_questions}"
   puts "Time: #{(time - @start_time).to_i} seconds"
 
-  if @wrong_answers.empty?
+  if @score == @num_questions
     puts 'Perfect score!'
   else
     puts 'Questions to review:'
@@ -185,7 +188,7 @@ def main
       @selected_button.toggle
       @selected_button = nil
 
-      if @questions.size == 20
+      if @questions.size == @num_questions
         end_quiz
       else
         gen_question
@@ -216,7 +219,7 @@ def main
       @selected_button.toggle
       @selected_button = nil
 
-      if @questions.size == 20
+      if @questions.size == @num_questions
         end_quiz
       else
         gen_question
@@ -225,6 +228,16 @@ def main
   end
 
   @start_time = Time.now
+
+  if @time_limit
+    tick = 0
+    update do
+      if (tick % 60).zero? && ((Time.now - @start_time).to_i > @time_limit)
+        puts "Time limit exceeded.\n#{@num_questions - @questions.size + 1} questions unanswered.\n"
+        end_quiz
+      end
+    end
+  end
 
   show
 end

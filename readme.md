@@ -8,6 +8,11 @@ type_math.rb, which uses ruby2d but makes you type the answer. The
 choice_math.rb version ocasionally displays duplicate choices. If duplicate
 correct choices are displayed, then any correct choice can be entered.
 
+Each quiz has a two minute time limit, set by the "time_limit" variable. 
+Consider adjusting this variable based on both the user's math and
+computer proficiency. Setting "time_limit" to nil will disable the time
+limit entirely.
+
 Choice Math Controls:
   - Mouse:  Click buttons
   - Esc:    Quit (does not print results)
@@ -26,7 +31,7 @@ Console Math Controls:
 
 Setting the Operators:
   - All games have support for +, -, *, /, and %, but default to using
-    using + and -. Change the by supplying a command line argument 
+    using + and -. Change this by supplying a command line argument 
     ( e.g. ruby type_math.rb "+-*/%" ). 
       - Note: The quotation marks are required because the operations are
         special characters in most operation systems.
@@ -48,6 +53,7 @@ TODO:
       by supplying a command line argument. ( e.g. ruby type_math.rb "+-*/%" )
   - Select range of operands at start of quiz.
   - Set number of questions at start of quiz.
+  - Set time limit at start of quiz.
   - Move play again screen from console to ruby2d window.
   - High score.
   - Difficulty selection

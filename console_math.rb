@@ -6,13 +6,15 @@ require 'rubocop'
 require './lib/question'
 
 operators = ARGV[0] ? ARGV[0].chars.map(&:to_sym) : %i[+ -]
+num_questions = 20
+time_limit = 120 # seconds
 
 loop do
   score = 0
   wrong = []
-  time = Time.now
+  start_time = Time.now
 
-  20.times do
+  num_questions.times do
     op = operators.sample
 
     case op
@@ -62,10 +64,15 @@ loop do
       wrong << question
       # puts "\t Wrong"
     end
+
+    if time_limit && (Time.now - start_time).to_i > time_limit
+      puts "Time limit exceeded.\n#{num_questions - score - wrong.size} questions unanswered."
+      break
+    end
   end
 
-  puts "\nScore: #{score}/20"
-  puts "Time: #{(Time.now - time).to_i} seconds"
+  puts "\nScore: #{score}/#{num_questions}"
+  puts "Time: #{(Time.now - start_time).to_i} seconds"
 
   puts 'Questions to review:'
   wrong.each do |q|
