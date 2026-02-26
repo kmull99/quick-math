@@ -111,6 +111,11 @@ def make_display
       coords: { x: 90, y: 50 },
       background: false,
       size: { width: 50, height: 50 }
+    ),
+    equal_bar: Rectangle.new(
+      x: 95, y: 90,
+      width: 100, height: 5,
+      color: 'black'
     )
   }
 

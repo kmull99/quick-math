@@ -89,7 +89,9 @@ def gen_question
     @choice_buttons[i].text = (choices[i])
   end
 
-  @question_display.text = (@questions[-1].compose)
+  @question_display[:op1].text = (@questions[-1].x)
+  @question_display[:op2].text = (@questions[-1].y)
+  @question_display[:operator].text = (@questions[-1].operation)
 end
 
 def make_buttons
@@ -110,10 +112,30 @@ def make_buttons
 end
 
 def make_display
-  @question_display = TextDisplay.new(
-    coords: { x: 60, y: 25 },
-    size: { width: 200, height: 50 }
-  )
+  @question_display = {
+    op1: TextDisplay.new(
+      coords: { x: 135, y: 15 },
+      size: { width: 50, height: 50 },
+      background: false,
+      orientation: :right
+    ),
+    op2: TextDisplay.new(
+      coords: { x: 135, y: 65 },
+      size: { width: 50, height: 50 },
+      background: false,
+      orientation: :right
+    ),
+    operator: TextDisplay.new(
+      coords: { x: 90, y: 65 },
+      background: false,
+      size: { width: 50, height: 50 }
+    ),
+    equal_bar: Rectangle.new(
+      x: 95, y: 110,
+      width: 100, height: 5,
+      color: 'black'
+    )
+  }
 end
 
 def make_sounds
