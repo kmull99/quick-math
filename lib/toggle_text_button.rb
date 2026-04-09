@@ -7,17 +7,18 @@ require 'rubocop'
 require_relative 'text_display'
 
 class ToggleTextButton < TextDisplay
-  @toggled = false
+  attr_reader :toggled
 
   # @param {String} image_path
   # @param {Hash{ x:, y: }} coords
   # @param {Hash{ x:, y: }} size
   def initialize(text: nil, coords: { x: 0, y: 0 }, size: { width: 100, height: 100 }, orientation: :center)
+    @toggled = false
     super
   end
 
   def mouse_over?(mx, my)
-    mx >= @coords[:x] && mx <= @coords[:x] + @size[:width] && my >= @coords[:y] && my <= @coords[:y] + @size[:height]
+    @enabled && mx >= @coords[:x] && mx <= @coords[:x] + @size[:width] && my >= @coords[:y] && my <= @coords[:y] + @size[:height]
   end
 
   def toggle

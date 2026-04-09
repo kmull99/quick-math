@@ -11,7 +11,7 @@ class TextDisplay
   @size = nil
   @orientation = nil
   @background = nil
-  @text = nil
+  @enabled = nil
 
   # @param {String} image_path
   # @param {Hash{ x:, y: }} coords
@@ -22,6 +22,7 @@ class TextDisplay
     @size = size
     @orientation = orientation
     @background = background
+    @enabled = true
 
     draw(text)
   end
@@ -33,6 +34,22 @@ class TextDisplay
 
   def text
     @text.text
+  end
+
+  def add
+    return if @enabled
+
+    @text.add
+    @background.add if @background # rubocop:disable Style/SafeNavigation
+    @enabled = true
+  end
+
+  def remove
+    return unless @enabled
+
+    @text.remove
+    @background.remove if @background # rubocop:disable Style/SafeNavigation
+    @enabled = false
   end
 
   private
