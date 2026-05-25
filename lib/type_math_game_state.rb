@@ -123,7 +123,7 @@ class TypeMathGameState < GameState
         y = tmp
       end
     when :*
-      x = rand(@game.operand_min..@game.operand_maxsucc)
+      x = rand(@game.operand_min..@game.operand_max)
       y = rand(11)
     when :/
       # Ensure there is no remainder or division by 0
